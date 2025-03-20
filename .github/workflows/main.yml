@@ -22,7 +22,7 @@ jobs:
     runs-on: [self-hosted, linux]
     steps:
       - name: Pull image from docker hub
-        run: docker pull integrationninjas/nodejs-app:latest
+        run: docker pull sumansarkar/nodejs-app:latest
       - name: Delete old container
         run: docker rm -f nodejs-app-container
       - name: Run docker container
