@@ -10,7 +10,7 @@ GraphQL Endpont: http://localhost:5000/graphql
 
 Query for below scenarios: 
 
-1. Get All Users with query operation
+1. Get All Users with query operation  -
 
 query{
   getAllUsers{
