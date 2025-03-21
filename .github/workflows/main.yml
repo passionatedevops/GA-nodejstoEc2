@@ -24,12 +24,12 @@ jobs:
           role-to-assume: arn:aws:iam::955213590927:role/GitHubAction-AssumeRoleWithAction
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
       
-      - name: Login to docker hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
-      - name: Build docker image
-        run: docker build -t sumansarkar/nodejs-app .
-      - name: Publish image to docker hub
-        run: docker push sumansarkar/nodejs-app:latest
+      # - name: Login to docker hub
+      #   run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
+      # - name: Build docker image
+      #   run: docker build -t sumansarkar/nodejs-app .
+      # - name: Publish image to docker hub
+      #   run: docker push sumansarkar/nodejs-app:latest
       
         
   deploy:
