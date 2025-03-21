@@ -2,7 +2,7 @@ name: CICD
 
 on:
   push:
-    branches: [ main , login-aws-oidc]
+    branches: []
 
 env:
   
