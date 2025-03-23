@@ -1,0 +1,41 @@
+{
+    "family": "node-app-task-definition",
+    "containerDefinitions": [
+        {
+            "name": "node-js-app-container",
+            "image": "955213590927.dkr.ecr.us-east-1.amazonaws.com/my-ecr-repo:latest",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "cotainer-run-port",
+                    "containerPort": 5000,
+                    "hostPort": 5000,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": [],
+            "systemControls": []
+        }
+    ],
+    "taskRoleArn": "arn:aws:iam::955213590927:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::955213590927:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "cpu": "1024",
+    "memory": "205",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "enableFaultInjection": false
+}

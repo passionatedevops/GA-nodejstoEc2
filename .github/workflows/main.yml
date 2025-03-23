@@ -7,7 +7,7 @@ on:
 env:
   
   AWS_REGION : "us-east-1"
-  REPOSITORY: my-ecr-repo-public
+  REPOSITORY: "my-ecr-repo"
   IMAGE_TAG: latest
 
 permissions:
@@ -34,6 +34,7 @@ jobs:
 
 
       - name: Build, tag, and push docker image to Amazon ECR
+        id: build-image
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: ${{ env.REPOSITORY }}
@@ -41,8 +42,24 @@ jobs:
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: nodejs-app-task-definition.json 
+          container-name: node-js-app-container
+          image: ${{ steps.build-image.outputs.image }}   
       
-        
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: node-js-app-service
+          cluster: DevClusterGA
+          wait-for-service-stability: true  
+          
+          
   # deploy:
   #   needs: build
   #   runs-on: [self-hosted, linux]
