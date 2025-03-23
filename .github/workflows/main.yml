@@ -52,7 +52,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: node-js-service-2
+          service: node-js-service-3
           cluster: DevClusterGA
           wait-for-service-stability: true  
           
