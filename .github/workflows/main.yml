@@ -8,7 +8,6 @@ env:
   
   AWS_REGION : "us-east-1"
   REPOSITORY: "my-ecr-repo"
-  IMAGE_TAG: latest
 
 permissions:
   id-token: write # This is required for requesting the JWT
@@ -35,15 +34,11 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: ${{ env.REPOSITORY }}
-          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
           echo "image=$REGISTRY/$REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Download task definition
-        run: |
-          aws ecs describe-task-definition --task-definition my-task-definition-family --query taskDefinition > nodejs-app-task-definition.json
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
