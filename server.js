@@ -69,6 +69,8 @@ app.use("/graphql", graphqlHTTP({
   })
 );
 
+app.get('/healthcheck', (req, res) => res.send('Hello nodejs app!'));
+
 app.get("/rest/getAllUsers", (req, res) => {
     res.send(userData)
    });
